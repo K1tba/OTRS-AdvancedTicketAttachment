@@ -1,0 +1,61 @@
+/*
+ Copyright (C) 2012-2023 Perl-Services.de, https://www.perl-services.de
+
+ This software comes with ABSOLUTELY NO WARRANTY. For details, see
+ the enclosed file COPYING for license information (AGPL). If you
+ did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     AttachmentList
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection  Widget Attachment List
+ */
+
+.ArticleAttachments.AttachmentList {
+    margin: 0;
+    max-height: 370px;
+    overflow-y: auto;
+}
+
+.ArticleAttachments.AttachmentList li {
+    min-height: 30px;
+    margin: 10px 0 0;
+    padding: 8px 60px 8px 12px;
+    float: none;
+}
+
+.ArticleAttachments.AttachmentList li h5.CopyText {
+    color: #000;
+    text-decoration: underline;
+}
+
+.ArticleAttachments.AttachmentList li h5.CopyText:hover {
+    color: #666;
+}
+
+.ArticleAttachments.AttachmentList li.FilterMessage {
+    min-height: auto;
+    padding: 8px 12px;
+}
+
+.ArticleAttachments.AttachmentList li h5 {
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.ArticleAttachments.AttachmentList li > div {
+    width: 60px;
+}
+
+.ArticleAttachments.AttachmentList li div > div + div {
+    right: 30px;
+    border-right: 1px solid #ccc;
+}
+
+} /* end @media */

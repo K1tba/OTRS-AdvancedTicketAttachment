@@ -1,0 +1,70 @@
+# --
+# Copyright (C) 2012-2023 Perl-Services.de, https://www.perl-services.de
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Show or hide the content") | html %]">
+                            <i class="fa fa-caret-right"></i>
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                    <h2>[% Translate("Attachments") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <input type="text" id="FilterAttachments" class="FilterBox" placeholder="[% Translate("Just start typing to filter...") | html %]" name="FilterAttachments" value="" title="[% Translate("Filter for attachments list") | html %]" />
+                    <ul class="ArticleAttachments AttachmentList" id="Attachments">
+[% RenderBlockStart("Attachment") %]
+                        <li title="[% Data.Filename | html %]">
+                            <h5 class="CopyText" title="[% Translate("Copy file name") | html %] [% Data.Filename | html %]">[% Data.Filename | html %]</h5>
+                            [% Data.FileDate | Localize("TimeShort") %]
+                            <div>
+                                <div>
+                                    <a href="[% Env("Baselink") %]Action=AgentTicketAttachment;TicketID=[% Data.TicketID | uri %];ArticleID=[% Data.ArticleID | uri %];FileID=[% Data.FileID | uri %];" title="[% Translate("Download") | html %] [% Data.Filename | html %]">
+                                        <i class="fa fa-download"></i>
+                                    </a>
+                                </div>
+[% RenderBlockStart("OtherActions") %]
+                                <div>
+[% RenderBlockStart("Rename") %]
+                                    <a class="AsPopup PopupType_TicketAction" href="[% Env("Baselink") %]Action=AgentTicketAttachmentRename;TicketID=[% Data.TicketID | uri %];ArticleID=[% Data.ArticleID | uri %];FileID=[% Data.FileID | uri %];" title="[% Translate("Rename") | html %] [% Data.Filename | html %]">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </a>
+[% RenderBlockEnd("Rename") %]
+[% RenderBlockStart("Delete") %]
+                                    <a class="AttachmentDelete" href="#" data-ticket-id="[% Data.TicketID | uri %]" data-article-id="[% Data.ArticleID | uri %]" data-file-id="[% Data.FileID | uri %]" title="[% Translate("Remove") | html %] [% Data.Filename | html %]">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+[% RenderBlockEnd("Delete") %]
+                                </div>
+[% RenderBlockEnd("OtherActions") %]
+                            </div>
+                        </li>
+[% RenderBlockEnd("Attachment") %]
+                        <li class="FilterMessage Hidden">
+                            <span>
+                                [% Translate("No matches found.") | html %]
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="Hidden" id="DeleteAttachmentDialogContainer">
+                        <div id="DeleteAttachmentDialog" class="InnerContent GenericInterfaceDialog">
+                            <p class="Center Spacing">
+                                [% Translate("This operation will permanently delete the file you selected.") | html %]
+                                </br>
+                                [% Translate("Do you really want to delete it?") | html %]
+                            </p>
+                            <div class="SpacingTop"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<script type="text/javascript">//<![CDATA[
+    Core.Agent.AttachmentList.Init();
+//]]></script>

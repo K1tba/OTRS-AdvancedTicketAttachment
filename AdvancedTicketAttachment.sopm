@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<otrs_package version="1.0">
+    <Name>AdvancedTicketAttachment</Name>
+    <Version>6.0.0</Version>
+    <Framework>6.0.x</Framework>
+    <Vendor>Nikita Bogdanov</Vendor>
+    <URL>https://github.com/K1tba/</URL>
+    <License>GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007</License>
+    <Description Lang="en">It provides an additional set of functions for working with attachments and also brings a new widget - "AttachmentList" to the system for the AgentTicketZoom overview form.</Description>
+    <Description Lang="ru">Предоставляет дополнительный набор функций для работы с вложениями а также привносит в систему новый виджет - "Прикрепленные файлы" для обзорной формы AgentTicketZoom.</Description>
+    <Filelist>
+        <File Permission="660" Location="doc/en/AdvancedTicketAttachment.pod"/>
+        <File Permission="660" Location="Kernel/Config/Files/XML/AdvancedTicketAttachment.xml"/>
+        <File Permission="660" Location="Kernel/Language/en_AdvancedTicketAttachment.pm"/>
+        <File Permission="660" Location="Kernel/Language/ru_AdvancedTicketAttachment.pm"/>
+        <File Permission="660" Location="Kernel/Modules/AgentTicketAttachmentDelete.pm"/>
+        <File Permission="660" Location="Kernel/Modules/AgentTicketAttachmentRename.pm"/>
+        <File Permission="660" Location="Kernel/Output/HTML/TicketZoom/AttachmentList.pm"/>
+        <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentTicketZoom/AttachmentList.tt"/>
+        <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentTicketAttachmentRename.tt"/>
+        <File Permission="660" Location="Kernel/System/Ticket/Article/Backend/MIMEBase/ArticleStorageTSALDB.pm"/>
+        <File Permission="660" Location="Kernel/System/Ticket/Article/Backend/MIMEBase/ArticleStorageTSALFS.pm"/>
+        <File Permission="660" Location="var/httpd/htdocs/skins/Agent/default/css/Core.AttachmentList.css"/>
+        <File Permission="660" Location="var/httpd/htdocs/js/Core.Agent.AttachmentList.js"/>
+        <File Permission="660" Location="var/packagesetup/AdvancedTicketAttachment.pm" />
+    </Filelist>
+    <DatabaseInstall Type="pre">
+        <Insert Table="ticket_history_type">
+            <Data Key="name" Type="Quote">AttachmentRename</Data>
+            <Data Key="comments" Type="Quote">Rename an attachment</Data>
+            <Data Key="valid_id">1</Data>
+            <Data Key="create_time">current_timestamp</Data>
+            <Data Key="create_by">1</Data>
+            <Data Key="change_time">current_timestamp</Data>
+            <Data Key="change_by">1</Data>
+        </Insert>
+        <Insert Table="ticket_history_type">
+            <Data Key="name" Type="Quote">AttachmentDelete</Data>
+            <Data Key="comments" Type="Quote">Delete an attachment</Data>
+            <Data Key="valid_id">1</Data>
+            <Data Key="create_time">current_timestamp</Data>
+            <Data Key="create_by">1</Data>
+            <Data Key="change_time">current_timestamp</Data>
+            <Data Key="change_by">1</Data>
+        </Insert>
+    </DatabaseInstall>
+    <DatabaseUpgrade Type="post">
+        <Insert Table="ticket_history_type" Version="1.0.1">
+            <Data Key="name" Type="Quote">AttachmentRename</Data>
+            <Data Key="comments" Type="Quote">Rename an attachment</Data>
+            <Data Key="valid_id">1</Data>
+            <Data Key="create_time">current_timestamp</Data>
+            <Data Key="create_by">1</Data>
+            <Data Key="change_time">current_timestamp</Data>
+            <Data Key="change_by">1</Data>
+        </Insert>
+        <Insert Table="ticket_history_type" Version="1.0.1">
+            <Data Key="name" Type="Quote">AttachmentDelete</Data>
+            <Data Key="comments" Type="Quote">Delete an attachment</Data>
+            <Data Key="valid_id">1</Data>
+            <Data Key="create_time">current_timestamp</Data>
+            <Data Key="create_by">1</Data>
+            <Data Key="change_time">current_timestamp</Data>
+            <Data Key="change_by">1</Data>
+        </Insert>
+    </DatabaseUpgrade>
+    <CodeInstall Type="post"><![CDATA[
+        $Kernel::OM->Get('var::packagesetup::AdvancedTicketAttachment')->CodeInstall();
+    ]]></CodeInstall>
+    <CodeUpgrade Type="post"><![CDATA[
+        $Kernel::OM->Get('var::packagesetup::AdvancedTicketAttachment')->CodeUpgrade();
+    ]]></CodeUpgrade>
+    <CodeReinstall Type="post"><![CDATA[
+        $Kernel::OM->Get('var::packagesetup::AdvancedTicketAttachment')->CodeReinstall();
+    ]]></CodeReinstall>
+    <CodeUninstall Type="pre"><![CDATA[
+        $Kernel::OM->Get('var::packagesetup::AdvancedTicketAttachment')->CodeUninstall();
+    ]]></CodeUninstall>
+    <IntroInstall Type="post" Lang="en">
+      <![CDATA[
+        If you use ArticleStorageDB, you have to switch it to ArticleStorageTSALDB.
+        If you use ArticleStorageFS, you have to switch it to ArticleStorageTSALFS.
+        You can change the settings via SysConfig. The option can be found in "Core::CommunicationChannel::MIMEBase".<br /><br />
+      ]]>
+    </IntroInstall>
+    <IntroInstall Type="post" Lang="ru">
+      <![CDATA[
+        Если вы используете ArticleStorageDB, вы должны переключить его на ArticleStorageTSALDB.
+        Если вы используете ArticleStorageFS, вы должны переключить его на ArticleStorageTSALFS.
+        Вы можете изменить настройки с помощью SysConfig. Опцию можно найти в "Core::CommunicationChannel::MIMEBase".<br /><br />
+      ]]>
+    </IntroInstall>
+    <IntroUninstall Type="pre" Lang="en">
+      <![CDATA[
+        Don't forget to switch back to the original ArticleStorage type!
+      ]]>
+    </IntroUninstall>
+    <IntroUninstall Type="pre" Lang="ru">
+      <![CDATA[
+        Не забудьте вернуться к исходному типу ArticleStorage!
+      ]]>
+    </IntroUninstall>
+</otrs_package>

@@ -1,0 +1,52 @@
+# --
+# Copyright (C) 2012-2023 Perl-Services.de, https://www.perl-services.de
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="compose" class="Validate PreventMultipleSubmits">
+    <input type="hidden" name="Action"    value="AgentTicketAttachmentRename"/>
+    <input type="hidden" name="Subaction" value="Rename"/>
+    <input type="hidden" name="TicketID"  value="[% Data.TicketID | html %]"/>
+    <input type="hidden" name="ArticleID" value="[% Data.ArticleID | html %]"/>
+    <input type="hidden" name="FileID"    value="[% Data.FileID | html %]"/>
+
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1>
+                [% Translate("Rename Attachment") | html %]: [% Data.Filename | html %]
+            </h1>
+            <p class="AsteriskExplanation">[% Translate("All fields marked with an asterisk (*) are mandatory.") | html %]</p>
+            <p>
+                <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+            </p>
+        </div>
+        <div class="Content">
+
+            <div class="WidgetSimple Expanded">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Toggle this widget") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate("Options") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabel">
+                        <label class="Mandatory" for="NewFilename"><span class="Marker">*</span>[% Translate("Rename to") | html %]:</label>
+                        <div class="Field">
+                            <input type="text" id="NewFilename" name="NewFilename" value="[% Data.NewFilename | html %]" class="Validate_Required [% Data.NewFilenameInvalid %] W50pc" />
+                            <div id="NewFilenameError" class="TooltipErrorMessage"><p>[% Translate("Invalid filename!") | html %]</p></div>
+                            <div id="NewFilenameServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid filename!") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="Footer">
+            <button class="Primary CallForAction" id="submitRichText" accesskey="g" title="[% Translate("Submit") | html %] (g)" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+        </div>
+    </div>
+</form>
